@@ -3,10 +3,12 @@ package com.example.dell.login_pnmb;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import retrofit2.Call;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private SessionManager session;
     private TextView mResponseTv;
     private APIService mAPIService;
+    ProgressBar progressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogout = (Button) findViewById(R.id.logout);
         final TextView tv1=(TextView)findViewById(R.id.textview1);
         final  TextView tv2=(TextView)findViewById(R.id.textview2);
+        progressbar = (ProgressBar) findViewById(R.id.progressBar);
+        progressbar.setVisibility(View.GONE);
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //progressbar.setVisibility(View.VISIBLE);
                 String LoginID =tv1.getText().toString().trim();
                 String sessionId=tv2.getText().toString().trim();;
                 String Longitute = titleEt.getText().toString().trim();
@@ -54,17 +60,15 @@ public class MainActivity extends AppCompatActivity {
                 String Address=bodyEt1.getText().toString().trim();
                 String IP=titleEt2.getText().toString().trim();
                 String Comment=bodyEt2.getText().toString().trim();
-                //if (!TextUtils.isEmpty(Latitute) && !TextUtils.isEmpty(Longitute) && !TextUtils.isEmpty(location) && !TextUtils.isEmpty(Address) && !TextUtils.isEmpty(IP) && !TextUtils.isEmpty(Comment)) {
+                if (!TextUtils.isEmpty(Latitute) && !TextUtils.isEmpty(Longitute) && !TextUtils.isEmpty(location) && !TextUtils.isEmpty(Address) && !TextUtils.isEmpty(IP) && !TextUtils.isEmpty(Comment)) {
                     sendPost(LoginID,sessionId,Latitute, Longitute,location,Address,IP,Comment);
-               // }
+                }
             }
         });
 
-
-
         String nameFromIntent = getIntent().getStringExtra(LOGIN_ID);
         String sessionIntent=getIntent().getStringExtra(SESSION_ID);
-        tv2.setText("" + sessionIntent);
+        tv2.setText(sessionIntent);
         tv1.setText(nameFromIntent);
 
         db = new DbHandler(getApplicationContext());
@@ -72,13 +76,6 @@ public class MainActivity extends AppCompatActivity {
         if (!session.isLoggedIn()) {
             logoutUser();
         }
-//        HashMap<String, String> user = db.getUserDetails();
-
-
-
-
-
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,23 +86,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendPost(String LoginID, String sessionId,String Longitute,String Latitute,String Location,String Address,String IP,String Comment) {
         mAPIService.savePost(LoginID, sessionId,Longitute,Latitute,Location,Address,IP,Comment).enqueue(new Callback<LoginModelResponse>()
-
         {
             @Override
             public void onResponse(Call<LoginModelResponse> call, Response<LoginModelResponse> response) {
-
                 if(response.isSuccessful()) {
+                   // progressbar.setVisibility(View.GONE);
                     showResponse(response.body().toString());
                     Toast.makeText(MainActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
-                     Log.d(TAG, "post submitted to API." + response.body().toString());
-                     Log.e(TAG, "POST Submitted to API" + response.body().toString());
+                     Log.d(TAG, "POST submitted to API." + response.body().toString());
                 }
             }
 
             @Override
             public void onFailure(Call<LoginModelResponse> call, Throwable t) {
+               // progressbar.setVisibility(View.GONE);
                 Log.e(TAG, "Unable to submit post to API.");
-
             }
         });
     }

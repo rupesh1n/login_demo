@@ -7,15 +7,15 @@ import retrofit2.http.POST;
 
 public interface APIService {
 
-    @POST("attendance")
+    @POST("/attendance")
     @FormUrlEncoded
     Call<LoginModelResponse> savePost(@Field("LoginID") String LoginID,
                                       @Field("sessionId") String sessionId,
-                                      @Field("Latitude") String Longitute,
-                                      @Field("title") String Latitute,
-                                      @Field("body") String Location,
-                                      @Field("userId") String Address,
-                                      @Field("title") String IP,
-                                      @Field("body") String Comment
+                                      @Field("Longitute") String Longitute,
+                                      @Field("Latitute") String Latitute,
+                                      @Field("Location") String Location,
+                                      @Field("Address") String Address,
+                                      @Field("IP") String IP,
+                                      @Field("Comment") String Comment
                       );
 }
