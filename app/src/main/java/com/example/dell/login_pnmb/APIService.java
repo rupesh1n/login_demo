@@ -7,7 +7,7 @@ import retrofit2.http.POST;
 
 public interface APIService {
 
-    @POST("/attendance")
+    @POST("attendance")
     @FormUrlEncoded
     Call<LoginModelResponse> savePost(@Field("LoginID") String LoginID,
                                       @Field("sessionId") String sessionId,

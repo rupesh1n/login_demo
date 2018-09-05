@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 String Address=bodyEt1.getText().toString().trim();
                 String IP=titleEt2.getText().toString().trim();
                 String Comment=bodyEt2.getText().toString().trim();
-                if (!TextUtils.isEmpty(Latitute) && !TextUtils.isEmpty(Longitute) && !TextUtils.isEmpty(location) && !TextUtils.isEmpty(Address) && !TextUtils.isEmpty(IP) && !TextUtils.isEmpty(Comment)) {
+               // if (!TextUtils.isEmpty(Latitute) && !TextUtils.isEmpty(Longitute) && !TextUtils.isEmpty(location) && !TextUtils.isEmpty(Address) && !TextUtils.isEmpty(IP) && !TextUtils.isEmpty(Comment)) {
                     sendPost(LoginID,sessionId,Latitute, Longitute,location,Address,IP,Comment);
-                }
+                //}
             }
         });
 
