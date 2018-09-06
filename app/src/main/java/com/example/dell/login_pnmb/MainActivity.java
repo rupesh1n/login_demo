@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                    // progressbar.setVisibility(View.GONE);
                     showResponse(response.body().toString());
-                    Toast.makeText(MainActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
                      Log.d(TAG, "POST submitted to API." + response.body().toString());
                 }
             }

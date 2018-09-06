@@ -30,24 +30,6 @@ public class LoginModelResponse {
     @Expose
     private String comment;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public LoginModelResponse() {
-    }
-
-    /**
-     *
-     * @param loginID
-     * @param address
-     * @param location
-     * @param sessionId
-     * @param comment
-     * @param latitute
-     * @param iP
-     * @param longitute
-     */
     public LoginModelResponse(String loginID, String sessionId, String longitute, String latitute, String location, String address, String iP, String comment) {
         super();
         this.loginID = loginID;
@@ -125,11 +107,11 @@ public class LoginModelResponse {
     }
     @Override
     public String toString() {
-        return "LoginModelResponse{" +
-                "loginID='" + loginID + '\'' +
-                ", sessionId='" + sessionId + '\'' +
-                ", latitute=" + latitute +
-                ", longitute=" + longitute +
-                '}';
+        return "LoginModelResponse { " +
+                " LoginID = " + loginID  +
+                ", sessionId = " + sessionId +
+                ", Longitute = " + latitute +
+                ", Latitute = " + longitute +
+                "}";
     }
 }
